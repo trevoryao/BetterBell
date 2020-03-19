@@ -12,9 +12,11 @@ Smart doorbell with facial recognition to recognise strangers approaching house.
 ## Implementation Notes
 
 - Building facial recognition database
-  - need to have server to update additions to library
-  - write code to update changes
+  - Need to have server to update additions to library
+  - Write code to update changes
   
 - Use Raspberry Pi as webcam to external server
+  - Server to centralise GPU calculations and facial recognition
+  - 
 
 - Build Swift app to take pictures to upload
