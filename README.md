@@ -19,3 +19,8 @@ Smart doorbell with facial recognition to recognise strangers approaching house.
   - Server to centralise GPU calculations and facial recognition.
 
 - Build Swift app to take pictures to upload.
+
+## Built With
+
+- Python
+- OpenCV API
