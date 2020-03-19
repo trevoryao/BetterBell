@@ -1,4 +1,4 @@
-# Secure-Bell
+# BetterBell
 
 Smart doorbell with facial recognition to recognise strangers approaching house.
 
