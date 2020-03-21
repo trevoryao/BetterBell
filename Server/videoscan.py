@@ -103,7 +103,7 @@ while True:
 
     # check to see if we are supposed to display the output frame to
 	# the screen
-	if args["display"] > 0:
+	if args["display"] == 0:
 		cv2.imshow("Frame", frame)
 		key = cv2.waitKey(1) & 0xFF
 		# if the `q` key was pressed, break from the loop
