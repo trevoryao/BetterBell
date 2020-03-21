@@ -9,25 +9,40 @@ import pickle
 import cv2
 import os
 
+def member(list, str):
+	for i in list:
+		if str == i:
+			return True
+	return False
+
 # construct the argument parser and parse the arguments
 ap = argparse.ArgumentParser()
 ap.add_argument("-i", "--dataset", required=True,
 	help="path to input directory of faces + images")
 ap.add_argument("-e", "--encodings", required=True,
 	help="path to serialized db of facial encodings")
-ap.add_argument("-d", "--detection-method", type=str, default="cnn",
+ap.add_argument("-d", "--detection-method", type=str, default="hog",
 	help="face detection model to use: either `hog` or `cnn`")
+ap.add_argument("-f", "--file-exists", type=int, required=True,
+	help="1 file exists, 0 file does not exist")
 args = vars(ap.parse_args())
 
 # grab the paths to the input images in our dataset
 print("[INFO] quantifying faces...")
 imagePaths = list(paths.list_images(args["dataset"]))
 
-# initialize the list of known encodings and known names
-knownEncodings = []
-knownNames = []
+# opening already encoded names or creating new one
+print("[INFO] unserializing encodings...")
 
-# opening existing already encoded names 
+if args["file_exists"] == 1:
+	f = open(args["encodings"], "rb")
+	data = pickle.load(f)
+	f.close()
+	knownEncodings = data["encodings"]
+	knownNames = data["names"]
+else:
+	knownEncodings = []
+	knownNames = []
 
 # loop over the image paths
 for (i, imagePath) in enumerate(imagePaths):
@@ -35,6 +50,9 @@ for (i, imagePath) in enumerate(imagePaths):
 	print("[INFO] processing image {}/{}".format(i + 1,
 		len(imagePaths)))
 	name = imagePath.split(os.path.sep)[-2]
+
+	if member(knownNames, name):
+		continue
 
 	# load the input image and convert it from RGB (OpenCV ordering)
 	# to dlib ordering (RGB)
@@ -60,5 +78,6 @@ for (i, imagePath) in enumerate(imagePaths):
 print("[INFO] serializing encodings...")
 data = {"encodings": knownEncodings, "names": knownNames}
 f = open(args["encodings"], "wb")
-f.write(pickle.dumps(data))
+pickle.dump(data, f)
 f.close()
+print("[INFO] encoding complete!")
