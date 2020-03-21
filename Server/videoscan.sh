@@ -1,3 +1,3 @@
 #!/bin/sh
 
-python videoscan.py -e encodings -o saved
+python videoscan.py -e encodings -o saved/
