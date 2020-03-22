@@ -23,4 +23,6 @@ Smart doorbell with facial recognition to recognise strangers approaching house.
 ## Built With
 
 - Python
-- OpenCV API
+- OpenCV
+- Dlib
+- CMake
