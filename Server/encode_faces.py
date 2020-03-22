@@ -4,7 +4,12 @@ import argparse
 import pickle
 import cv2
 import os
-import tools
+
+def member(list, newPath):
+	for path in list:
+		if newPath == path:
+			return True
+	return False
 
 # construct the argument parser and parse the arguments
 ap = argparse.ArgumentParser()
