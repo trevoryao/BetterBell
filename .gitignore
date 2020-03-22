@@ -1,3 +1,4 @@
 
 # Ignore saved datasets (not required)
 Server/dataset
+Server/encoding
