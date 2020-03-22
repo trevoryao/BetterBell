@@ -1,19 +1,10 @@
-# USAGE
-# python encode_faces.py --dataset dataset --encodings encodings.pickle
-
-# import the necessary packages
 from imutils import paths
 import face_recognition
 import argparse
 import pickle
 import cv2
 import os
-
-def member(list, str):
-	for i in list:
-		if str == i:
-			return True
-	return False
+import tools
 
 # construct the argument parser and parse the arguments
 ap = argparse.ArgumentParser()
