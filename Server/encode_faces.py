@@ -40,9 +40,11 @@ if args["file_exists"] == 1:
 	f.close()
 	knownEncodings = data["encodings"]
 	knownNames = data["names"]
+	knownPaths = data["paths"]
 else:
 	knownEncodings = []
 	knownNames = []
+	knownPaths = []
 
 # loop over the image paths
 for (i, imagePath) in enumerate(imagePaths):
@@ -51,8 +53,11 @@ for (i, imagePath) in enumerate(imagePaths):
 		len(imagePaths)))
 	name = imagePath.split(os.path.sep)[-2]
 
-	if member(knownNames, name):
+	if member(knownPaths, imagePath):
+		print("[INFO] image already encoded...")
 		continue
+	else:
+		knownPaths.append(imagePath)
 
 	# load the input image and convert it from RGB (OpenCV ordering)
 	# to dlib ordering (RGB)
@@ -76,7 +81,7 @@ for (i, imagePath) in enumerate(imagePaths):
 
 # dump the facial encodings + names to disk
 print("[INFO] serializing encodings...")
-data = {"encodings": knownEncodings, "names": knownNames}
+data = {"encodings": knownEncodings, "names": knownNames, "paths": knownPaths}
 f = open(args["encodings"], "wb")
 pickle.dump(data, f)
 f.close()
